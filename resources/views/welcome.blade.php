@@ -15,6 +15,9 @@
 </head>
 
 <body id="page-top">
+    <div id="app">
+
+
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
@@ -283,16 +286,17 @@
 
                 <!-- Container Fluid-->
                 <div class="container-fluid" id="container-wrapper">
-                   
-
+                    <router-view></router-view>
                 </div>
                 <!---Container Fluid-->
             </div>
             <!-- Footer -->
-           
+
             <!-- Footer -->
         </div>
     </div>
+
+</div> <!-- End of app-->
 
     <!-- Scroll to top -->
     <a class="scroll-to-top rounded" href="#page-top">

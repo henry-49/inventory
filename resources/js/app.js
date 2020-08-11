@@ -12,9 +12,17 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Import Routes
+import { routes } from './routes';
+
+const router = new VueRouter({
+    routes, // short for `routes: routes`
+    mode: 'history'  // remove the # on the url
+});
+
 
 
 const app = new Vue({
     el: '#app',
+    router
 });
