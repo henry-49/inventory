@@ -15,6 +15,13 @@ Vue.use(VueRouter);
 // Import Routes
 import { routes } from './routes';
 
+
+// Import User Class
+import User from './Helpers/User';
+
+// making User globally available
+window.User = User
+
 const router = new VueRouter({
     routes, // short for `routes: routes`
     mode: 'history'  // remove the # on the url
