@@ -22,6 +22,28 @@ import User from './Helpers/User';
 // making User globally available
 window.User = User
 
+// Sweet Alert start
+
+import Swal from "sweetalert2";
+
+// support it
+window.Swal =  Swal;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+});
+
+window.Toast = Toast;
+// Sweet Alert end
+
 const router = new VueRouter({
     routes, // short for `routes: routes`
     mode: 'history'  // remove the # on the url
