@@ -15,6 +15,7 @@ class AppStorage {
         this.storeUser(user);
     }
 
+    // remove Item from token and user
     clear() {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
