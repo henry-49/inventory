@@ -2071,7 +2071,7 @@ __webpack_require__.r(__webpack_exports__);
     localStorage.removeItem('user');
     Toast.fire({
       icon: 'success',
-      title: 'Logout successfully'
+      title: 'Logout Successfully'
     });
     this.$router.push({
       name: '/'
