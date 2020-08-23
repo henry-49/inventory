@@ -22,8 +22,13 @@ import User from './Helpers/User';
 // making User globally available
 window.User = User
 
-// Sweet Alert start
+// Import Notification Class
+import Notification from "./Helpers/Notification";
 
+// making Notification globally available
+window.Notification = Notification;
+
+// Sweet Alert start
 import Swal from "sweetalert2";
 
 // support it
