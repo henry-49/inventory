@@ -1,4 +1,5 @@
 class Notification {
+    // succuss notification
     success() {
         new Noty({
             type: "success",
@@ -8,6 +9,7 @@ class Notification {
         }).show();
     }
 
+    // alert notification
     alert() {
         new Noty({
             type: "alert",
@@ -17,6 +19,7 @@ class Notification {
         }).show();
     }
 
+    // error notification
     error() {
         new Noty({
             type: "alert",
@@ -25,7 +28,7 @@ class Notification {
             timeout: 1000
         }).show();
     }
-
+    // warning notification
     warning() {
         new Noty({
             type: "warning",
@@ -35,7 +38,15 @@ class Notification {
         }).show();
     }
 
-
+    // image_validation notification
+    image_validation() {
+        new Noty({
+            type: "error",
+            layout: "topRight",
+            text: "Upload image less than 1MB",
+            timeout: 1000
+        }).show();
+    }
 }
 
 export default Notification = new Notification();
