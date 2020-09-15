@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Model\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Image;
 
 class EmployeeController extends Controller
@@ -54,7 +55,7 @@ class EmployeeController extends Controller
             $img->save($image_url);
 
 
-            $employee = new Employee;
+            $employee = new Employee();
             $employee->name    = $request->name;
             $employee->email   = $request->email;
             $employee->phone   =  $request->phone;
@@ -67,7 +68,7 @@ class EmployeeController extends Controller
 
        }else{
 
-            $employee = new Employee;
+            $employee = new Employee();
             $employee->name     = $request->name;
             $employee->email    = $request->email;
             $employee->phone    =  $request->phone;
@@ -88,6 +89,8 @@ class EmployeeController extends Controller
     public function show($id)
     {
         //
+      $employee = DB::table('employees')->where('id',$id)->first();
+       return response()->json($employee);
     }
 
 
