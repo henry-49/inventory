@@ -114,6 +114,16 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // select the first data from employees table
+        $employee = DB::table('employees')->where('id', $id)->first();
+        $photo = $employee->photo;
+        // if the selected employee has photo the delete it
+        if($photo){
+            unlink($photo);
+            DB::table('employees')->where('id', $id)->delete();
+        }else{
+            // delete all data
+            DB::table('employees')->where('id', $id)->delete();
+        }
     }
 }
