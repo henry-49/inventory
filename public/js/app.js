@@ -2502,14 +2502,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       form: {
-        name: null,
-        email: null,
-        phone: null,
-        salary: null,
-        address: null,
-        photo: null,
-        nid: null,
-        joining_date: null
+        name: '',
+        email: '',
+        phone: '',
+        salary: '',
+        address: '',
+        photo: '',
+        newphoto: '',
+        nid: '',
+        joining_date: ''
       },
       errors: {}
     };
@@ -2535,18 +2536,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var reader = new FileReader();
 
       reader.onload = function (event) {
-        _this2.form.photo = event.target.result;
-        console.log(event.target.result);
+        _this2.form.newphoto = event.target.result; // console.log(event.target.result);
       };
 
       reader.readAsDataURL(file);
     }
   },
-  employeeInsert: function employeeInsert() {
+  employeeUpdate: function employeeUpdate() {
     var _this3 = this;
 
     // insert data
-    axios.post('/api/employee', this.form).then(function () {
+    var id = this.$route.params.id; // patch redirct to update method
+
+    axios.patch('/api/employee/' + id, this.form).then(function () {
       // push to employee
       _this3.$router.push({
         name: 'employee'
@@ -2675,10 +2677,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (result.isConfirmed) {
           axios["delete"]('/api/employee/' + id).then(function () {
             _this3.employees = _this3.employees.filter(function (employee) {
+              // return without loading the page, id that are not match with the deleted id.
+              // without loading the page return employees that did not match with the deleted employee
               return employee.id != id;
             });
           })["catch"](function () {
-            return _this3.$router.push({
+            // push to employee page in the router
+            _this3.$router.push({
               name: 'employee'
             });
           });
@@ -46579,7 +46584,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.employeeInsert($event)
+                          return _vm.employeeUpdate($event)
                         }
                       }
                     },
@@ -46945,7 +46950,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
-        [_vm._v("Submit")]
+        [_vm._v("Update")]
       )
     ])
   }

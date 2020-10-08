@@ -88,7 +88,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        //shows employee data
       $employee = DB::table('employees')->where('id',$id)->first();
        return response()->json($employee);
     }
@@ -103,7 +103,53 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //udate employee
+        $data = array();
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['phone'] = $request->phone;
+        $data['salary'] = $request->salary;
+        $data['address'] = $request->address;
+        $data['nid'] = $request->nid;
+        $data['joining_date'] = $request->joining_date;
+        $image = $request->newphoto;
+
+        // Updating new Image
+        if ($image) {
+            // defining position of the image
+            $position = strpos($image, ';');
+            // taking the  image path before the semikolon starting from 0
+            $sub = substr($image, 0, $position);
+            // explode the sub by removing slash '/' and take index 1
+            $exp =  explode('/', $sub)[1];
+
+            // create unique name for the image
+            $name = time() . "." . $exp;
+            //  resize image
+            $img = Image::make($image)->resize(240, 200);
+            $upload_path = 'backend/employee/';
+            $image_url = $upload_path . $name;
+            // save newly uploaded image    
+            $success = $img->save($image_url);
+            if($success){
+                $data['photo'] = $image_url;
+                // select the first data from employees table
+                $img = DB::table('employees')->where('id', $id)->first();
+                $image_path = $img->photo;
+                // unlink the old image
+                $done = unlink($image_path); // delete old image
+                $user = DB::table('employees')->where('id', $id)->update($data);
+            }
+
+        } else {
+            // else keep the old Image
+            $oldphoto = $request->photo;
+            $data['photo'] = $oldphoto;
+            $user = DB::table('employees')->where('id', $id)->update($data);
+        }
+        
+        
+
     }
 
     /**
@@ -117,9 +163,9 @@ class EmployeeController extends Controller
         // select the first data from employees table
         $employee = DB::table('employees')->where('id', $id)->first();
         $photo = $employee->photo;
-        // if the selected employee has photo the delete it
+        // if the selected employee field has any photo then unlink it
         if($photo){
-            unlink($photo);
+            unlink($photo); // delete photo
             DB::table('employees')->where('id', $id)->delete();
         }else{
             // delete all data

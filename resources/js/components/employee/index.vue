@@ -98,10 +98,15 @@
                 axios.delete('/api/employee/'+id)
                 .then(() => {
                     this.employees = this.employees.filter(employee => {
+                        // return without loading the page, id that are not match with the deleted id.
+                        // without loading the page return employees that did not match with the deleted employee
                         return employee.id != id
                     })
                 })
-                .catch(() => this.$router.push({name: 'employee'}))
+                .catch(() => {
+                    // push to employee page in the router
+                    this.$router.push({name: 'employee'})
+                })  
                 Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',
