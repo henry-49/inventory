@@ -2,7 +2,7 @@
 <div>
 
     <div class="row">
-        <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
+        <router-link to="/supplier" class="btn btn-primary">All Supplier</router-link>
     </div>
 
     <div class="row justify-content-center">
@@ -13,9 +13,9 @@
                         <div class="col-lg-12">
                             <div class="login-form">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Add Employee</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Supplier Update</h1>
                                 </div>
-                                <form class="user" @submit.prevent="employeeInsert" enctype="multipart/form-data">
+                                <form class="user" @submit.prevent="supplierUpdate" enctype="multipart/form-data">
                                     <div class="form-group">
 
                                         <div class="form-row">
@@ -35,27 +35,12 @@
                                             </div>
 
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Salary" v-model="form.salary">
-                                                <small class="text-danger" v-if="errors.salary"> {{ errors.salary[0] }} </small>
+                                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Salary" v-model="form.shopname">
+                                                <small class="text-danger" v-if="errors.shopname"> {{ errors.shopname[0] }} </small>
                                             </div>
 
                                         </div>
 
-                                    </div>
-                                    <div class="form-group">
-
-                                        <div class="form-row">
-                                            <div class="col-md-6">
-                                                <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Joining Date" v-model="form.joining_date">
-                                                <small class="text-danger" v-if="errors.joining_date"> {{ errors.joining_date[0] }} </small>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Nid" v-model="form.nid">
-                                                <small class="text-danger" v-if="errors.nid"> {{ errors.nid[0] }} </small>
-                                            </div>
-
-                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -89,7 +74,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Update</button>
                                     </div>
                                 </form>
                                 <hr>
@@ -119,18 +104,26 @@ export default {
     data() {
         return {
             form: {
-                name: null,
-                email: null,
-                phone: null,
-                salary: null,
-                address: null,
-                photo: null,
-                nid: null,
-                joining_date: null
+                name: '',
+                email: '',
+                phone: '',
+                shopname: '',
+                address: '',
+                photo: '',
+                newphoto: '',
             },
             errors: {}
 
         }
+    },
+    // created method with be run first
+    created() {
+        let id = this.$route.params.id;
+        axios.get('/api/supplier/' + id)
+            .then(({
+                data
+            }) => (this.form = data))
+            .catch(console.log('error'))
     },
 
     methods: {
@@ -143,19 +136,21 @@ export default {
                 // get the image URL
                 let reader = new FileReader();
                 reader.onload = event => {
-                    this.form.photo = event.target.result
-                    console.log(event.target.result);
+                    this.form.newphoto = event.target.result
+                    // console.log(event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
         },
-        employeeInsert() {
+        supplierUpdate() {
             // insert data
-            axios.post('/api/employee', this.form)
+            let id = this.$route.params.id;
+            // patch redirct to update method
+            axios.patch('/api/supplier/' + id, this.form)
                 .then(() => {
-                    // push to employee
+                    // push to supplier
                     this.$router.push({
-                        name: 'employee'
+                        name: 'supplier'
                     })
                     Notification.success()
                 })
