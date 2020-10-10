@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Model\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -14,18 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // using Eloquent model fetch all employee
+        $category = Category::all();
+        return response()->json($category);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +30,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate data
+        $validateData = $request->validate([
+            // category_name should be unique in the categories table
+            'category_name'  => 'required|unique:categories|max:255',
+        ]);
+
+        $category = new Category();
+        $category->category_name = $request->category_name;
+        $category->save();
+        
     }
 
     /**
@@ -46,18 +50,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        //show category data
+        $category = DB::table('categories')->where('id', $id)->first();
+        return response()->json($category);
     }
 
     /**
@@ -69,7 +64,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //udate category
+        $data = array();
+        $data['category_name'] = $request->category_name;
+        $user = DB::table('categories')->where('id', $id)->update($data);
     }
 
     /**
@@ -80,6 +78,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        // delete all data
+        DB::table('categories')->where('id', $id)->delete();
+        
     }
 }
