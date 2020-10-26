@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // using Eloquent model fetch all employee
+        // using Eloquent model fetch all category
         $category = Category::all();
         return response()->json($category);
     }
