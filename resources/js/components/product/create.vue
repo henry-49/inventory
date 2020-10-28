@@ -15,107 +15,107 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Add Product</h1>
                                     </div>
-                                    <form class="user" @submit.prevent="productInsert" enctype="multipart/form-data">
-                                        <div class="form-group">
+                            <form class="user" @submit.prevent="productInsert" enctype="multipart/form-data">
+                                <div class="form-group">
 
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Product Name</label>
-                                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Name" v-model="form.product_name">
-                                                    <small class="text-danger" v-if="errors.product_name"> {{ errors.product_name[0] }} </small>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Product Code</label>
-                                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Code" v-model="form.product_code">
-                                                    <small class="text-danger" v-if="errors.product_code"> {{ errors.product_code[0] }} </small>
-                                                </div>
-
-                                            </div>
-
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="exampleFormControlSelect1">Product Name</label>
+                                            <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Name" v-model="form.product_name">
+                                            <small class="text-danger" v-if="errors.product_name"> {{ errors.product_name[0] }} </small>
                                         </div>
 
-                                        <div class="form-group">
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Product Category</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
-                                                        <option v-for="category in categories" :value="category.id">{{category.category_name}}</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect2">Product Supplier</label>
-                                                    <select class="form-control" id="exampleFormControlSelect2" v-model="form.supplier_id">
-                                                        <option v-for="supplier in suppliers" :value="supplier.id">{{supplier.name}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <label for="exampleFormControlSelect1">Product Code</label>
+                                            <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Code" v-model="form.product_code">
+                                            <small class="text-danger" v-if="errors.product_code"> {{ errors.product_code[0] }} </small>
                                         </div>
 
-                                        <div class="form-group">
+                                    </div>
 
-                                            <div class="form-row">
-                                                <div class="col-md-4">
-                                                    <label for="exampleFormControlSelect1">Product Root</label>
-                                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Root" v-model="form.root">
-                                                    <small class="text-danger" v-if="errors.root"> {{ errors.root[0] }} </small>
-                                                </div>
+                                </div>
 
-                                                <div class="col-md-4">
-                                                    <label for="exampleFormControlSelect1">Buying Price</label>
-                                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Buying Price" v-model="form.buying_price">
-                                                    <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>
-                                                </div>
-
-                                                <div class="col-md-4">
-                                                    <label for="exampleFormControlSelect1">Selling Price</label>
-                                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Selling Price" v-model="form.selling_price">
-                                                    <small class="text-danger" v-if="errors.selling_price"> {{ errors.selling_price[0] }} </small>
-                                                </div>
-
-                                            </div>
-
+                                <div class="form-group">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="exampleFormControlSelect1">Product Category</label>
+                                            <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
+                                                <option v-for="category in categories" :value="category.id">{{category.category_name}}</option>
+                                            </select>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="col-md-6">
+                                            <label for="exampleFormControlSelect2">Product Supplier</label>
+                                            <select class="form-control" id="exampleFormControlSelect2" v-model="form.supplier_id">
+                                                <option v-for="supplier in suppliers" :value="supplier.id">{{supplier.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Buying Date</label>
-                                                    <input type="date" class="form-control" id="exampleInputFirstName" v-model="form.buying_date">
-                                                    <small class="text-danger" v-if="errors.buying_date"> {{ errors.buying_date[0] }} </small>
-                                                </div>
+                                <div class="form-group">
 
-                                                <div class="col-md-6">
-                                                    <label for="exampleFormControlSelect1">Product Quantity</label>
-                                                    <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Quantity" v-model="form.product_quantity">
-                                                    <small class="text-danger" v-if="errors.product_quantity"> {{ errors.product_quantity[0] }} </small>
-                                                </div>
-
-                                            </div>
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <label for="exampleFormControlSelect1">Product Root</label>
+                                            <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Root" v-model="form.root">
+                                            <small class="text-danger" v-if="errors.root"> {{ errors.root[0] }} </small>
                                         </div>
 
-                                        <div class="form-group">
-
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
-                                                    <small class="text-danger" v-if="errors.image"> {{ errors.image[0] }} </small>
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <img :src="form.image" style="height: 40px; width: 40px;" />
-                                                </div>
-
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label for="exampleFormControlSelect1">Buying Price</label>
+                                            <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Buying Price" v-model="form.buying_price">
+                                            <small class="text-danger" v-if="errors.buying_price"> {{ errors.buying_price[0] }} </small>
                                         </div>
 
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                        <div class="col-md-4">
+                                            <label for="exampleFormControlSelect1">Selling Price</label>
+                                            <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Selling Price" v-model="form.selling_price">
+                                            <small class="text-danger" v-if="errors.selling_price"> {{ errors.selling_price[0] }} </small>
                                         </div>
-                                    </form>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <label for="exampleFormControlSelect1">Buying Date</label>
+                                            <input type="date" class="form-control" id="exampleInputFirstName" v-model="form.buying_date">
+                                            <small class="text-danger" v-if="errors.buying_date"> {{ errors.buying_date[0] }} </small>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="exampleFormControlSelect1">Product Quantity</label>
+                                            <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Quantity" v-model="form.product_quantity">
+                                            <small class="text-danger" v-if="errors.product_quantity"> {{ errors.product_quantity[0] }} </small>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
+                                            <small class="text-danger" v-if="errors.image"> {{ errors.image[0] }} </small>
+                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <img :src="form.image" style="height: 40px; width: 40px;" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                </div>
+                            </form>
                                     <hr>
                                     <div class="text-center">
                                     </div>

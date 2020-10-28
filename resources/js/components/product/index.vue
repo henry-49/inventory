@@ -90,7 +90,7 @@
                     }) => (this.products = data))
                     .catch()
             },
-            deleteEmployee(id) {
+            deleteProduct(id) {
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -103,19 +103,17 @@
                     if (result.isConfirmed) {
                         axios.delete('/api/product/' + id)
                             .then(() => {
-                                this.products = this.products.filter(employee => {
+                                this.products = this.products.filter(product => {
                                     // return without loading the page, id that are not match with the deleted id.
-                                    // without loading the page return employees that did not match with the deleted product
-                                    return employee.id != id
+                                    // without loading the page return products that did not match with the deleted product
+                                    return product.id != id
                                 })
                             })
                             .catch(() => {
                                 // push to product page in the router
-                                this.$router.push({
-                                    name: 'product'
-                                })
+                                this.$router.push({ name: 'product'})
                             })
-                        Swal.fire(
+                          Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
                             'success'

@@ -103,7 +103,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        //shows product data
+        $product = DB::table('products')->where('id', $id)->first();
+        return response()->json($product);
     }
 
 
@@ -116,7 +118,52 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //udate product
+        $data = array();
+        $data['product_name'] = $request->product_name;
+        $data['product_code'] = $request->product_code;
+        $data['category_id'] = $request->category_id;
+        $data['supplier_id'] = $request->supplier_id;
+        $data['root'] = $request->root;
+        $data['buying_price'] = $request->buying_price;
+        $data['selling_price'] = $request->selling_price;
+        $data['buying_date'] = $request->buying_date;
+        $data['product_quantity'] = $request->product_quantity;
+        $image = $request->newimage;
+
+        // Updating new Image
+        if ($image) {
+            // defining position of the image
+            $position = strpos($image, ';');
+            // taking the  image path before the semikolon starting from 0
+            $sub = substr($image, 0, $position);
+            // explode the sub by removing slash '/' and take index 1
+            $exp =  explode('/', $sub)[1];
+
+            // create unique name for the image
+            $name = time() . "." . $exp;
+            //  resize image
+            $img = Image::make($image)->resize(240, 200);
+            $upload_path = 'backend/product/';
+            $image_url = $upload_path . $name;
+            // save newly uploaded image    
+            $success = $img->save($image_url);
+            if ($success) {
+                $data['image'] = $image_url;
+                // select the first data from products table
+                $img = DB::table('products')->where('id', $id)->first();
+                $image_path = $img->image;
+                // unlink the old image
+                $done = unlink($image_path); // delete old image
+                $user = DB::table('products')->where('id', $id)->update($data);
+            }
+        } else {
+            // else keep the old Image
+            $oldphoto = $request->image;
+            $data['image'] = $oldphoto;
+            $user = DB::table('products')->where('id', $id)->update($data);
+        }
+        
     }
 
     /**
@@ -127,6 +174,17 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // select the first data from products table
+        $product = DB::table('products')->where('id', $id)->first();
+        $photo = $product->image;
+        // if the selected product field has any photo then unlink it
+        if ($photo) {
+            unlink($photo); // delete photo
+            DB::table('products')->where('id', $id)->delete();
+        } else {
+            // delete all data
+            DB::table('products')->where('id', $id)->delete();
+        }
+
     }
 }
