@@ -100,6 +100,21 @@
                             </div>
                         </div>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap4" aria-expanded="true" aria-controls="collapseBootstrap3">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Expense</span>
+                        </a>
+                        <div id="collapseBootstrap4" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <router-link to="/store-expense" class="collapse-item">Add Expense</router-link>
+                                <router-link to="/expense" class="collapse-item">All Expesnse</router-link>
+
+                            </div>
+                        </div>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="forms.html">
                             <i class="fab fa-fw fa-wpforms"></i>
@@ -343,8 +358,9 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>copyright © <script>document.write(new Date().getFullYear());
-                                </script> - developed by 
+                            <span>copyright © <script>
+                                    document.write(new Date().getFullYear());
+                                </script> - developed by
                                 <b><a href="https://gorillaweb.com" target="_blank">Gorilla Web</a></b> </span>
                         </div>
                     </div>

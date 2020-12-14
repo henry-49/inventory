@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Model\Category;
 use Illuminate\Http\Request;
+use App\Model\Expense;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class ExpenseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // using Eloquent model fetch all category
-        $category = Category::all();
-        return response()->json($category);
+        // using Eloquent model fetch all expense
+        $expense = Expense::all();
+        return response()->json($expense);
     }
 
 
@@ -30,16 +30,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //
         // validate data
         $validateData = $request->validate([
-            // category_name should be unique in the categories table
-            'category_name'  => 'required|unique:categories|max:255',
+            // details & amount should be required in the expense table
+            'details'  => 'required',
+            'amount'  => 'required',
         ]);
 
-        $category = new Category();
-        $category->category_name = $request->category_name;
-        $category->save();
-        
+        $expense = new Expense();
+        $expense->details = $request->details;
+        $expense->amount = $request->amount;
+        $expense->expense_date = date('d/m/y');
+
+        $expense->save();
     }
 
     /**
@@ -50,10 +54,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //show category data
-        $category = DB::table('categories')->where('id', $id)->first();
-        return response()->json($category);
+        //show expense data
+        $expense = DB::table('expenses')->where('id', $id)->first();
+        return response()->json($expense);
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -64,10 +69,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //udate category
+        //udate expense
+        // using query builder
         $data = array();
-        $data['category_name'] = $request->category_name;
-        $user = DB::table('categories')->where('id', $id)->update($data);
+        $data['details'] = $request->details;
+        $data['amount'] = $request->amount;
+        $user = DB::table('expenses')->where('id', $id)->update($data);
     }
 
     /**
@@ -78,9 +85,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-
-        // delete data from categories table
-        DB::table('categories')->where('id', $id)->delete();
-        
+        //
+        DB::table('expenses')->where('id', $id)->delete();
     }
 }
